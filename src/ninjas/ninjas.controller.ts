@@ -15,15 +15,18 @@ export class NinjasController {
   constructor(private readonly ninjaService: NinjasService) {}
   // GET /ninjas?type=fast --> [...]
   @Get()
-  getNinjas(@Query('weapon') weapon: string, @Query('type') type: string) {
+  getNinjas(
+    @Query('weapon') weapon: 'stars' | 'nunchucks' | 'katana' | 'pen',
+    @Query('type') type: string,
+  ) {
     console.log({ type });
     return this.ninjaService.getNinjas(weapon);
   }
 
   // GET /ninjas/:id --> {...}
   @Get(':id')
-  getOneNinjas(@Param('id') id: string) {
-    return { id };
+  getOneNinjas(@Param('id') id: number) {
+    return this.ninjaService.getOneNinja(Number(id));
   }
 
   // POST /ninjas
